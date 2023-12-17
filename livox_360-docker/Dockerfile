@@ -38,3 +38,6 @@ RUN . /opt/ros/noetic/setup.sh && \
     cd ${HOME}/catkin_ws/src/livox_ros_driver2 && ./build.sh ROS1
     
 COPY ./MID360_config.json ${HOME}/catkin_ws/src/livox_ros_driver2/config/
+
+CMD ["bash", "-c", "source ${HOME}/catkin_ws/devel/setup.bash && roslaunch livox_ros_driver2 rviz_MID360.launch"]
+
