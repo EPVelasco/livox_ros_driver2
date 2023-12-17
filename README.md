@@ -1,3 +1,27 @@
+# Docker
+This repository is a fork of the original [repository](https://github.com/Livox-SDK/livox_ros_driver2). 
+We have created a docker image to make it easier to run. 
+
+## Download the docker file and MID360.json
+You need to download the Dockerfile and MID360_config.json files that are in the [livox_360-docker](https://github.com/EPVelasco/livox_ros_driver2/tree/master/livox_360-docker
+) folder.
+
+## Pull docker image
+The docker image is based on a ROS noetic image and contains the [Livox-SDK2](https://github.com/Livox-SDK/Livox-SDK2) and the [livox-ros-driver2](https://github.com/Livox-SDK/livox_ros_driver2) repository.
+The image size is about 3.67GB, need to set aside enough space.
+```
+    cd ~/your_path_of_dockerfile/
+    sudo docker build -t sudo docker build -t livox360-docker .    
+```
+## Config the MID360_config file with the correct IP
+The MID360_config.json file must be modified with the IP address of the host and the LiDAR sensor. The IP addresses of host_net_info must be the IP address of the computer.
+The IP address of lidar_configs must be the IP address of the LiDAR sensor.
+
+## Create container and run docker
+```
+sudo docker run --shm-size=1g --ulimit memlock=-1 --ulimit stack=67108864 --rm -it --net=host -e DISPLAY=:0 --user=1000:1000 -v /tmp/.X11-unix:/tmp/.X11-unix:rw -v /dev:/dev --name livox360-docker_container --gpus all --cpuset-cpus=0-3 livox360-docker
+```
+
 # Livox ROS Driver 2
 
 Livox ROS Driver 2 is the 2nd-generation driver package used to connect LiDAR products produced by Livox, applicable for ROS (noetic recommended) and ROS2 (foxy or humble recommended).
